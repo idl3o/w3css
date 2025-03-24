@@ -1,0 +1,526 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/dist/index.js",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ],
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ],
+            "env": {
+                "NODE_ENV": "development",
+                "DEBUG": "true"
+            },
+            "runtimeExecutable": "node"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/dist/index.js",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ],
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "!**/node_modules/**"
+            ],
+            "env": {
+                "DEBUG": "true",
+                "NODE_ENV": "development",
+                "TS_NODE_PROJECT": "./tsconfig.json"
+            },
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--trace-warnings",
+                "--unhandled-rejections=strict"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "outputCapture": "std"
+        },
+        {
+            "command": "npm start",
+            "name": "Run npm start",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run Hardhat Test",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "npx",
+            "runtimeArgs": [
+                "hardhat",
+                "test"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run Hardhat Node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeExecutable": "npx",
+            "runtimeArgs": [
+                "hardhat",
+                "node"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "Deploy Script",
+            "program": "${workspaceFolder}/scripts/deploy.sh",
+            "args": []
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "Setup Environment",
+            "program": "${workspaceFolder}/scripts/setup-env.sh",
+            "args": []
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "Run Tests",
+            "program": "${workspaceFolder}/scripts/run-tests.sh",
+            "args": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run with Fallback RPC",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\src\\index.ts",
+            "env": {
+                "FALLBACK_RPC_ENDPOINTS": "${workspaceFolder}/config/rpc-endpoints.json",
+                "USE_IPFS_GATEWAY": "true",
+                "DEBUG": "true"
+            },
+            "runtimeExecutable": "node"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome Preview",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/src",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            }
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "Launch Firefox Preview",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/src",
+            "pathMappings": [
+                {
+                    "url": "webpack:///src",
+                    "path": "${webRoot}"
+                }
+            ]
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Preview JSON",
+            "url": "http://localhost:5500/${relativeFile}",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Live Server: Start Server",
+            "postDebugTask": "Live Server: Stop Server",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Format JSON",
+            "program": "${workspaceFolder}/node_modules/.bin/prettier",
+            "args": [
+                "--write",
+                "${file}"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Modern JSON Preview",
+            "url": "http://localhost:5500/${relativeFile}",
+            "webRoot": "${workspaceFolder}",
+            "devToolsProtocolFolding": true,
+            "useWebView2": true,
+            "presentation": {
+                "hidden": false,
+                "group": "preview",
+                "order": 1
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "JavaScript Viewer",
+            "url": "http://localhost:5500/viewer.html",
+            "webRoot": "${workspaceFolder}",
+            "userDataDir": false,
+            "sourceMaps": true,
+            "presentation": {
+                "hidden": false,
+                "group": "viewer",
+                "order": 1
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Live URL Preview",
+            "url": "http://localhost:${env:PORT:-3000}/${relativeFileDirname}/${fileBasenameNoExtension}",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Live URL Server",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "live",
+                "order": 1
+            },
+            "env": {
+                "HOST": "localhost",
+                "PORT": "3000"
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Live HTTPS Preview",
+            "url": "https://localhost:${env:HTTPS_PORT:-3443}/${relativeFile}",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start HTTPS Server",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            },
+            "env": {
+                "SSL_KEY": "${workspaceFolder}/certs/localhost.key",
+                "SSL_CERT": "${workspaceFolder}/certs/localhost.crt",
+                "HTTPS_PORT": "3443"
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Mobile Device Preview",
+            "url": "http://0.0.0.0:${env:PORT:-3000}/${relativeFile}",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Live URL Server",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            },
+            "userDataDir": false,
+            "presentation": {
+                "hidden": false,
+                "group": "live",
+                "order": 3
+            },
+            "env": {
+                "HOST": "0.0.0.0",
+                "PORT": "3000"
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Live HTTPS Preview",
+            "url": "https://localhost:3000/${relativeFile}",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start HTTPS Server",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug With Node Options",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/index.ts",
+            "runtimeArgs": [
+                "--max-old-space-size=4096",
+                "--trace-warnings",
+                "--inspect",
+                "--expose-gc"
+            ],
+            "env": {
+                "NODE_ENV": "development",
+                "DEBUG": "true"
+            },
+            "runtimeExecutable": "node"
+        },
+        {
+            "name": "Docker Node.js Launch",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "platform": "node"
+        },
+        {
+            "name": "Debug Podman Container",
+            "type": "bashdb",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/run-podman.sh",
+            "args": []
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "Install Node.js",
+            "program": "${workspaceFolder}/scripts/install-node.sh",
+            "args": [
+                "--lts"
+            ],
+            "env": {
+                "NVM_DIR": "${env:HOME}/.nvm"
+            }
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "Switch Node Version",
+            "program": "${workspaceFolder}/scripts/switch-node.sh",
+            "args": [
+                "${input:nodeVersion}"
+            ],
+            "env": {
+                "NVM_DIR": "${env:HOME}/.nvm"
+            }
+        },
+        {
+            "type": "node-terminal",
+            "name": "Demo Commands",
+            "request": "launch",
+            "command": "${input:demoCommand}",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Test Blockchain Utility",
+            "program": "${workspaceFolder}/src/utils/__tests__/blockchain.test.ts",
+            "runtimeArgs": [
+                "--experimental-vm-modules"
+            ],
+            "env": {
+                "NODE_ENV": "test",
+                "DEBUG": "true"
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Print HTML Preview",
+            "url": "http://localhost:${env:PORT:-3000}/${relativeFile}",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Start Live URL Server",
+            "userDataDir": "${workspaceFolder}/.vscode/edge-data",
+            "args": [
+                "--enable-features=PrintPreview",
+                "--disable-dev-shm-usage",
+                "--force-device-scale-factor=1"
+            ],
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "docs",
+                "order": 1
+            },
+            "env": {
+                "NODE_ENV": "development",
+                "MS_PRINT_BACKGROUND": "true",
+                "MS_PRINT_MARGINS": "default",
+                "MS_PRINT_SCALE": "1"
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "View Development Progress",
+            "url": "http://localhost:${env:PORT:-3000}/views/progress.html",
+            "webRoot": "${workspaceFolder}/src",
+            "preLaunchTask": "Start Live URL Server",
+            "presentation": {
+                "hidden": false,
+                "group": "progress",
+                "order": 1
+            },
+            "env": {
+                "AUTO_REFRESH": "true",
+                "REFRESH_INTERVAL": "30000"
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Launch Landing Page",
+            "url": "http://localhost:${env:PORT:-3000}/views/index.html",
+            "webRoot": "${workspaceFolder}/src",
+            "preLaunchTask": "Start Live URL Server",
+            "presentation": {
+                "hidden": false,
+                "group": "web3",
+                "order": 1
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Launch Video Player",
+            "url": "http://localhost:${env:PORT:-3000}/views/player.html",
+            "webRoot": "${workspaceFolder}/src",
+            "preLaunchTask": "Start Live URL Server",
+            "presentation": {
+                "hidden": false,
+                "group": "streaming",
+                "order": 1
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "View Capabilities",
+            "url": "http://localhost:${env:PORT:-3000}/views/capabilities.html",
+            "webRoot": "${workspaceFolder}/src",
+            "preLaunchTask": "Start Live URL Server",
+            "presentation": {
+                "hidden": false,
+                "group": "system",
+                "order": 1
+            }
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Generate PDF Documentation",
+            "url": "http://localhost:${env:PORT:-3000}/${input:pdfSourcePath}",
+            "webRoot": "${workspaceFolder}/src",
+            "preLaunchTask": "Start Live URL Server",
+            "userDataDir": "${workspaceFolder}/.vscode/edge-data",
+            "args": [
+                "--headless",
+                "--disable-gpu",
+                "--print-to-pdf=${workspaceFolder}/docs/pdf/${input:pdfFileName}.pdf",
+                "--print-to-pdf-no-header",
+                "--enable-features=PrintPreview"
+            ],
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            },
+            "presentation": {
+                "hidden": false,
+                "group": "docs",
+                "order": 2
+            },
+            "env": {
+                "NODE_ENV": "production",
+                "MS_PRINT_BACKGROUND": "true",
+                "MS_PRINT_MARGINS": "none",
+                "MS_PRINT_SCALE": "1"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "nodeVersion",
+            "type": "promptString",
+            "description": "Enter Node.js version (e.g. 18.16.0)",
+            "default": "lts/*"
+        },
+        {
+            "id": "demoCommand",
+            "type": "pickString",
+            "description": "Select a demo command to run",
+            "options": [
+                {
+                    "label": "Run Hello World",
+                    "value": "node scripts/hello-world.js"
+                },
+                {
+                    "label": "Show Node Version",
+                    "value": "node --version"
+                },
+                {
+                    "label": "List Project Dependencies",
+                    "value": "npm list --depth=0"
+                },
+                {
+                    "label": "Show Environment Info",
+                    "value": "npm run env"
+                },
+                {
+                    "label": "Check TypeScript",
+                    "value": "npx tsc --noEmit"
+                },
+                {
+                    "label": "Run Contract Tests",
+                    "value": "npx hardhat test"
+                }
+            ]
+        },
+        {
+            "id": "releaseType",
+            "type": "pickString",
+            "description": "Select release type",
+            "options": [
+                "patch",
+                "minor",
+                "major"
+            ]
+        },
+        {
+            "id": "pdfSourcePath",
+            "type": "promptString",
+            "description": "Path to HTML file to convert to PDF",
+            "default": "views/documentation.html"
+        },
+        {
+            "id": "pdfFileName",
+            "type": "promptString",
+            "description": "Name for the output PDF file (without extension)",
+            "default": "documentation"
+        }
+    ]
+}
