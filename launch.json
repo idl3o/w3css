@@ -342,6 +342,7 @@
             "runtimeArgs": [
                 "--experimental-vm-modules"
             ],
+            "runtimeExecutable": "node",
             "env": {
                 "NODE_ENV": "test",
                 "DEBUG": "true"
@@ -460,6 +461,62 @@
                 "MS_PRINT_MARGINS": "none",
                 "MS_PRINT_SCALE": "1"
             }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Test API Manager",
+            "program": "${workspaceFolder}/src/services/__tests__/ApiManager.test.ts",
+            "runtimeArgs": [
+                "--experimental-vm-modules"
+            ],
+            "runtimeExecutable": "node",
+            "env": {
+                "NODE_ENV": "test",
+                "DEBUG": "true"
+            }
+        },
+        {
+            "type": "node-terminal",
+            "name": "Initialize Repository",
+            "request": "launch",
+            "command": "git init && git add . && git commit -m \"Initial commit\"",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Create GitHub Repository",
+            "request": "launch",
+            "command": "gh repo create ${input:repoName} --${input:repoVisibility} --source=. --push",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Clone Repository",
+            "request": "launch",
+            "command": "git clone ${input:repoUrl} ${input:localFolder}",
+            "cwd": "${workspaceFolder}/.."
+        },
+        {
+            "type": "node-terminal",
+            "name": "Publish Code to GitHub",
+            "request": "launch",
+            "command": "git push origin ${input:branchName}",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Setup GitHub Actions",
+            "request": "launch",
+            "command": "mkdir -p .github/workflows && cp ${workspaceFolder}/templates/github-actions/nodejs.yml .github/workflows/main.yml && git add .github && git commit -m \"Add GitHub Actions workflow\" && git push origin ${input:branchName}",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Sync Repository",
+            "request": "launch",
+            "command": "git pull origin ${input:branchName} && git push origin ${input:branchName}",
+            "cwd": "${workspaceFolder}"
         }
     ],
     "inputs": [
@@ -521,6 +578,40 @@
             "type": "promptString",
             "description": "Name for the output PDF file (without extension)",
             "default": "documentation"
+        },
+        {
+            "id": "repoName",
+            "type": "promptString",
+            "description": "Name for the GitHub repository",
+            "default": "web3-crypto-streaming-service"
+        },
+        {
+            "id": "repoVisibility",
+            "type": "pickString",
+            "description": "Repository visibility",
+            "options": [
+                "public",
+                "private",
+                "internal"
+            ]
+        },
+        {
+            "id": "repoUrl",
+            "type": "promptString",
+            "description": "Git repository URL to clone",
+            "default": "https://github.com/username/web3-crypto-streaming-service.git"
+        },
+        {
+            "id": "localFolder",
+            "type": "promptString",
+            "description": "Local folder name for the cloned repository",
+            "default": "web3-crypto-streaming-service"
+        },
+        {
+            "id": "branchName",
+            "type": "promptString",
+            "description": "Branch name to push to or pull from",
+            "default": "main"
         }
     ]
 }
